@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const app = express();
 const PORT = 3000;
@@ -13,7 +14,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // MongoDB Connection
-const mongoURI = 'mongodb+srv://ljupchespasovski:Mkd_12345@cluster0.ftghxwc.mongodb.net/Books?retryWrites=true&w=majority';
+console.log("TUKA0", process.env.API_KEY)
+const mongoURI = process.env.MONGO_URI
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
