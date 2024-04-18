@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // MongoDB Connection
-console.log("TUKA0", process.env.API_KEY)
 const mongoURI = process.env.MONGO_URI
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
