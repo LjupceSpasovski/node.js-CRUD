@@ -38,12 +38,12 @@ jobs:
             if [ "$CIRCLE_BRANCH" == "main" ]; then
               echo "$SSH_KEY" > ~/.ssh/key.pem
               chmod 400 ~/.ssh/key.pem
-              ssh -i ~/.ssh/key.pem ec2-user@54.161.141.123 '/<<EOF
-              ls
+              ssh -i ~/.ssh/key.pem ec2-user@54.161.141.123 '\<<EOF
               git pull origin main
               npm install
+              npm run build
               pm2 restart your-app
-            EOF'
+              EOF'
             else
               echo "Skipping deployment for branch $CIRCLE_BRANCH"
             fi
