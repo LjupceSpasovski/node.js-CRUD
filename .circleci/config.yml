@@ -19,11 +19,13 @@ jobs:
 
     steps:
       - checkout
-
+      - run:
+          name: Log NODE_KEY
+          command: echo "$NODE_KEY"
       # Deploy to EC2 via SSH
       - run:
           name: Set SSH key permissions
-          command: echo "$SSH_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+          command: echo "$NODE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - run:
           name: Deploy to EC2
