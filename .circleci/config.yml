@@ -18,21 +18,21 @@ jobs:
       - image: circleci/node:14
 
     steps:
-  - checkout
-  
-  - run:
-      name: Log SSH_KEY
-      command: echo "$SSH_KEY"
+      - checkout
+      
+      - run:
+          name: Log SSH_KEY
+          command: echo "$SSH_KEY"
 
-  # Set SSH key permissions
-  - run:
-      name: Set SSH key permissions
-      command: chmod 600 "$SSH_KEY"
+      # Set SSH key permissions
+      - run:
+          name: Set SSH key permissions
+          command: chmod 600 "$SSH_KEY"
 
-  # Deploy to EC2 via SSH
-  - run:
-      name: Deploy to EC2
-      command: ssh -o "StrictHostKeyChecking=no" -i "$SSH_KEY" ubuntu@ec2-54-227-8-167.compute-1.amazonaws.com ls -l
+      # Deploy to EC2 via SSH
+      - run:
+          name: Deploy to EC2
+          command: ssh -o "StrictHostKeyChecking=no" -i "$SSH_KEY" ubuntu@ec2-54-227-8-167.compute-1.amazonaws.com ls -l
 
 
 
