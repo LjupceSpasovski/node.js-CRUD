@@ -1,4 +1,5 @@
 version: 2.1
+
 jobs:
   build:
     docker:
@@ -7,49 +8,36 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package-lock.json" }}
-            - v1-dependencies-
-
+      # Add your build steps here, such as installing dependencies and running tests
       - run:
           name: Install dependencies
           command: npm install
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package-lock.json" }}
+      # Example: Running tests
+      - run:
+          name: Run tests
+          command: npm test
 
   deploy:
-    docker: 
+    docker:
       - image: circleci/node:14
 
     steps:
       - checkout
 
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA256:UZw06uGTlEEK7rqgUWWc3OzGK4FshF2qTwQiheyEc10"
-
+      # Install any necessary dependencies for deployment (e.g., SSH client)
       - run:
-          name: Deploy Application
-          command: |
-            if [ "$CIRCLE_BRANCH" == "main" ]; then
-              echo "$SSH_KEY" > ~/.ssh/key.pem
-              chmod 400 ~/.ssh/key.pem
-              ssh -i ~/.ssh/key.pem ec2-user@54.161.141.123 '\<<EOF
-              git pull origin main
-              npm install
-              npm run build
-              pm2 restart your-app
-              EOF'
-            else
-              echo "Skipping deployment for branch $CIRCLE_BRANCH"
-            fi
+          name: Install SSH client
+          command: sudo apt-get update && sudo apt-get install -y openssh-client
+
+      # Deploy to EC2 via SSH
+      - run:
+          name: Deploy to EC2
+          command: ssh -i ~/.ssh/id_rsa ec2-user@18.209.24.79 ls -l
+
 workflows:
   version: 2
-  build_and_deploy:
+  build-and-deploy:
     jobs:
       - build
       - deploy:
@@ -57,5 +45,4 @@ workflows:
             - build
           filters:
             branches:
-              only:
-                - main
+              only: main
