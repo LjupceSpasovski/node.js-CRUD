@@ -21,15 +21,15 @@ jobs:
       - checkout
       - run:
           name: Log NODE_KEY
-          command: echo "$NODE_KEY"
+          command: echo "$SSH_KEY"
       # Deploy to EC2 via SSH
       - run:
           name: Set SSH key permissions
-          command: echo "$NODE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+          command: echo "$SSH_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - run:
           name: Deploy to EC2
-          command: ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ubuntu@ec2-18-209-24-79.compute-1.amazonaws.com ls -l
+          command: ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ubuntu@ec2-54-227-8-167.compute-1.amazonaws.com ls -l
 
 
 workflows:
