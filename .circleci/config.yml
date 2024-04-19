@@ -36,9 +36,7 @@ jobs:
           name: Deploy Application
           command: |
             if [ "$CIRCLE_BRANCH" == "main" ]; then
-                ssh -i .circleci/encrypted-auth.pem ec2-user@54.161.141.123 '\<< EOF
-                    pwd
-                    cd .\node book api\
+                ssh -i auth.pem ec2-user@54.161.141.123 '\<< EOF
                     sudo sudo git clone https://github.com/LjupceSpasovski/node.js-CRUD.git
                     ls
             EOF'
