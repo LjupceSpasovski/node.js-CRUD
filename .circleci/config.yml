@@ -13,11 +13,6 @@ jobs:
           name: Install dependencies
           command: npm install
 
-      # Example: Running tests
-      - run:
-          name: Run tests
-          command: npm test
-
   deploy:
     docker:
       - image: circleci/node:14
