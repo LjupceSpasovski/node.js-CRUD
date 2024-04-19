@@ -36,7 +36,7 @@ jobs:
           name: Deploy Application
           command: |
             if [ "$CIRCLE_BRANCH" == "main" ]; then
-                ssh -i .circleci/encrypted-auth.pem ec2-user@54.161.141.123 '\<< EOF4
+                ssh -i .circleci/encrypted-auth.pem ec2-user@54.161.141.123 '\<< EOF
                     cd '.\node book api\'
                     sudo git pull origin main
                     ls
