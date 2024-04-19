@@ -45,3 +45,15 @@ jobs:
             else
               echo "Skipping deployment for branch ${CIRCLE_BRANCH}"
             fi
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
