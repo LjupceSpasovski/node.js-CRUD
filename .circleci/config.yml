@@ -23,7 +23,7 @@ jobs:
       # Deploy to EC2 via SSH
       - run:
           name: Set SSH key permissions
-          command: chmod 600 ~/.ssh/id_rsa
+          command: echo "$SSH_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - run:
           name: Deploy to EC2
