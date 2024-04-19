@@ -27,7 +27,7 @@ jobs:
       # Deploy to EC2 via SSH
       - run:
           name: Deploy to EC2
-          command: ssh -o "StrictHostKeyChecking=no" -i ~/.ssh ubuntu@ec2-54-227-8-167.compute-1.amazonaws.com ls -l
+          command: ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/node_app.pem ubuntu@ec2-54-227-8-167.compute-1.amazonaws.com ls -l
 
 
 
