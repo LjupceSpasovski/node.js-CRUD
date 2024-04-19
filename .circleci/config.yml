@@ -22,8 +22,13 @@ jobs:
 
       # Deploy to EC2 via SSH
       - run:
+          name: Set SSH key permissions
+          command: chmod 600 ~/.ssh/id_rsa
+
+      - run:
           name: Deploy to EC2
           command: ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ec2-user@18.209.24.79 ls -l
+
 
 workflows:
   version: 2
