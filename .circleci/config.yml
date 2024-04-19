@@ -36,7 +36,7 @@ jobs:
           name: Deploy Application
           command: |
             if [ "$CIRCLE_BRANCH" == "main" ]; then
-                ssh -i encrypted-auth.pem ec2-user@54.161.141.123 '\<< EOF
+                ssh -i ./.circleci/encrypted-auth.pem ec2-user@54.161.141.123 '\<< EOF
                     sudo git pull origin main
                     ls
             EOF'
