@@ -23,7 +23,7 @@ jobs:
       # Install any necessary dependencies for deployment (e.g., SSH client)
       - run:
           name: Install SSH client
-          command: sudo apt-get clean && sudo apt-get update && sudo apt-get install -y openssh-client 
+          command: sudo apt-get update && sudo apt-get install -y openssh-client 
 
       # Deploy to EC2 via SSH
       - run:
