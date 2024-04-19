@@ -1,0 +1,51 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+
+      - run:
+          name: Install dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Run Tests
+          command: npm test
+
+  deploy:
+    docker: 
+      - image: circleci/node:14
+
+    steps:
+      - checkout
+    
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:tjp2D4GippmjLA8IXFBy0khWU8Jwb3gkGVqUk/OU7lQ"
+
+      - run:
+          name: Deploy Application
+          command: |
+            if [ "$CIRCLE_BRANCH" == "main" ]; then
+              ssh -i encrypted-auth.pem ec2-user@54.161.141.123 'bash -s' << 'EOF'
+                cd /path/to/your/application
+                sudo git pull origin main
+                sudo npm install
+                sudo systemctl restart your-app-name
+              EOF
+            else
+              echo "Skipping deployment for branch $CIRCLE_BRANCH"
+            fi
