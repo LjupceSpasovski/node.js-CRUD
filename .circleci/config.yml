@@ -30,7 +30,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:tjp2D4GippmjLA8IXFBy0khWU8Jwb3gkGVqUk/OU7lQ"
+            - "SHA256:UZw06uGTlEEK7rqgUWWc3OzGK4FshF2qTwQiheyEc10"
 
       - run:
           name: Deploy Application
