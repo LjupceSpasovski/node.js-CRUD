@@ -29,7 +29,7 @@ jobs:
 
       - run:
           name: Deploy to EC2
-          command: ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/id_rsa ubuntu@ec2-54-227-8-167.compute-1.amazonaws.com ls -l
+          command: ssh -o "StrictHostKeyChecking=no" -i "$SSH_KEY" ubuntu@ec2-54-227-8-167.compute-1.amazonaws.com ls -l
 
 
 workflows:
