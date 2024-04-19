@@ -35,15 +35,13 @@ jobs:
       - run:
           name: Deploy Application
           command: |
-            if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              ssh -i encrypted-auth.pem ec2-user@54.161.141.123 'bash -s' \<< 'EOF'
-                cd /path/to/your/application
-                sudo git pull origin main
-                sudo npm install
-                sudo systemctl restart your-app-name
-              EOF
+            if [ "$CIRCLE_BRANCH" == "main" ]; then
+                ssh -i encrypted-auth.pem ec2-user@54.161.141.123 << EOF
+                    sudo git pull origin main
+                    ls
+            EOF
             else
-              echo "Skipping deployment for branch ${CIRCLE_BRANCH}"
+                echo "Skipping deployment for branch $CIRCLE_BRANCH"
             fi
 workflows:
   version: 2
