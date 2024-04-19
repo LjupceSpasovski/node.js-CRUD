@@ -35,13 +35,13 @@ jobs:
       - run:
           name: Deploy Application
           command: |
-            if [ "$CIRCLE_BRANCH" == "main" ]; then
-                ssh -i .circleci/auth.pem ec2-user@54.161.141.123 '\<< EOF
-                    sudo sudo git clone https://github.com/LjupceSpasovski/node.js-CRUD.git
-                    ls
-            EOF'
+             if [ "$CIRCLE_BRANCH" == "main" ]; then
+              echo "$SSH_KEY" > ~/.ssh/key.pem
+              chmod 400 ~/.ssh/key.pem
+              ssh -i ~/.ssh/key.pem ec2-user@54.161.141.123 
+              ls
             else
-                echo "Skipping deployment for branch $CIRCLE_BRANCH"
+              echo "Skipping deployment for branch $CIRCLE_BRANCH"
             fi
 workflows:
   version: 2
