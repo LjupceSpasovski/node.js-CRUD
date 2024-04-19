@@ -37,10 +37,10 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
               ssh -i encrypted-auth.pem ec2-user@54.161.141.123 'bash -s' << 'EOF'
-                cd /path/to/your/application
                 sudo git pull origin main
+                cd node book api
                 sudo npm install
-                sudo systemctl restart your-app-name
+                sudo node app.js
               EOF
             else
               echo "Skipping deployment for branch ${CIRCLE_BRANCH}"
