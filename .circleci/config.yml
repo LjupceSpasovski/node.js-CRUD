@@ -32,17 +32,10 @@ jobs:
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
             chmod 600 ~/.ssh/id_rsa.pem
 
-      # Start SSH-Agent and add SSH key
-      - run:
-          name: Start SSH-Agent and add SSH key
-          command: |
-            eval $(ssh-agent)
-            ssh-add ~/.ssh/id_rsa.pem
-
       # Example SSH command
       - run:
           name: SSH into server
-          command: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
+          command: ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
 
 workflows:
   version: 2
