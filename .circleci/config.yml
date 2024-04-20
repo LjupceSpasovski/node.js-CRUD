@@ -29,13 +29,13 @@ jobs:
           name: Set up SSH key
           command: |
             mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" > /home/circleci/.ssh/crud.pem
-            chmod 400 /home/circleci/.ssh/crud.pem
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/crud.pem
+            chmod 400 ~/.ssh/crud.pem
 
       # Example SSH command
       - run:
           name: SSH into server
-          command: ssh -vvv -o StrictHostKeyChecking=no -i /home/circleci/.ssh/crud.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
+          command: ssh -vvv -o StrictHostKeyChecking=no -o ForwardAgent=yes -i ~/.ssh/crud.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
 
 workflows:
   version: 2
