@@ -1,51 +1,13 @@
 version: 2.1
 
 jobs:
-  build:
-    docker:
-      - image: circleci/node:14
-
-    steps:
-      - checkout
-
-      # Add your build steps here, such as installing dependencies and running tests
-      - run:
-          name: Install dependencies
-          command: npm install
-
   deploy:
     docker:
-      - image: circleci/node:14
-
+      - image: arvindr226/alpine-ssh
     steps:
-      - checkout
-      
-      - run:
-          name: Log SSH_PRIVATE_KEY
-          command: echo "$SSH_PRIVATE_KEY"
-
-       # Create SSH directory and set up SSH key
-      - run:
-          name: Set up SSH key
-          command: |
-            mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" > ~/.ssh/crud.pem
-            chmod 400 ~/.ssh/crud.pem
-            echo ~/.ssh/crud.pem
-
-      # Example SSH command
-      - run:
-          name: SSH into server
-          command: ssh -vvv -o StrictHostKeyChecking=no -o ForwardAgent=yes -i ~/.ssh/crud.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
+      - run: ssh -oStrictHostKeyChecking=no -v $USER@$DNS "./deploy.sh"
 
 workflows:
-  version: 2
-  build-and-deploy:
+  deploy-to-ec2:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: main
+      - deploy
