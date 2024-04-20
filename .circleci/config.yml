@@ -24,13 +24,18 @@ jobs:
           name: Log SSH_PRIVATE_KEY
           command: echo "$SSH_PRIVATE_KEY"
 
-      # Configure SSH
+       # Create SSH directory and set up SSH key
       - run:
-          name: Configure SSH
+          name: Set up SSH key
           command: |
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
             chmod 600 ~/.ssh/id_rsa.pem
+
+      # Start SSH-Agent and add SSH key
+      - run:
+          name: Start SSH-Agent and add SSH key
+          command: |
             eval $(ssh-agent)
             ssh-add ~/.ssh/id_rsa.pem
 
