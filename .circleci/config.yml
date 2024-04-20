@@ -30,7 +30,7 @@ jobs:
           command: |
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
-            chmod 600 ~/.ssh/id_rsa.pem
+            chmod 400 /home/circleci/.ssh/id_rsa.pem
 
       # Example SSH command
       - run:
