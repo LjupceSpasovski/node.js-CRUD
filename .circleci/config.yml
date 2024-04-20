@@ -21,8 +21,8 @@ jobs:
       - checkout
       
       - run:
-          name: Log SSH_KEY
-          command: echo "$SSH_KEY"
+          name: Log SSH_PRIVATE_KEY
+          command: echo "$SSH_PRIVATE_KEY"
 
       # Configure SSH
       - run:
@@ -35,7 +35,7 @@ jobs:
       # Example SSH command
       - run:
           name: SSH into server
-          command: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
+          command: echo "" | sshpass -p - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
 
 workflows:
   version: 2
