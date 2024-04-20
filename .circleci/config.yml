@@ -29,14 +29,13 @@ jobs:
           name: Configure SSH
           command: |
             mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
-            ssh-keyscan -H hostname >> ~/.ssh/known_hosts
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
+            chmod 600 ~/.ssh/id_rsa.pem
 
       # Example SSH command
       - run:
           name: SSH into server
-          command: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
+          command: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
 
 workflows:
   version: 2
