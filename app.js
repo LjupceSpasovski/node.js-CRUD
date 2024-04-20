@@ -55,6 +55,16 @@ app.post('/books', async (req, res) => {
 });
 
 
+app.get('/books', async (req, res) => {
+  try {
+    const items = await Book.find();
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 app.put('/books/:id', async (req, res) => {
   try {
     const { id } = req.params;
