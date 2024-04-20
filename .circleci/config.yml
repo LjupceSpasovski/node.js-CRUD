@@ -24,9 +24,6 @@ jobs:
           name: Log SSH_PRIVATE_KEY
           command: echo "$SSH_PRIVATE_KEY"
 
-      - run:
-          name: Install sshpass
-          command: sudo apt-get update && sudo apt-get install -y sshpass
       # Configure SSH
       - run:
           name: Configure SSH
@@ -34,11 +31,13 @@ jobs:
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa.pem
             chmod 600 ~/.ssh/id_rsa.pem
+            eval $(ssh-agent)
+            ssh-add ~/.ssh/id_rsa.pem
 
       # Example SSH command
       - run:
           name: SSH into server
-          command: echo " " | sshpass -p - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
+          command: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pem ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
 
 workflows:
   version: 2
