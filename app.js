@@ -14,7 +14,7 @@ AWS.config.update({ region: 'us-east-1' });
 const ssm = new AWS.SSM();
 
 // Middleware
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 
 //Cors
 app.use(cors());
