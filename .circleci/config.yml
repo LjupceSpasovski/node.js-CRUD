@@ -31,7 +31,7 @@ jobs:
             mkdir -p ~/.ssh
             echo "$SSH_PRIVATE_KEY" > ~/.ssh/crud.pem
             chmod 400 ~/.ssh/crud.pem
-            ssh-keygen -p -P '' -N '' -f ~/.ssh/crud.pem
+            echo ~/.ssh/crud.pem
 
       # Example SSH command
       - run:
