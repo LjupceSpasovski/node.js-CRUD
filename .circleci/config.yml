@@ -24,12 +24,19 @@ jobs:
           name: Log SSH_KEY
           command: echo "$SSH_KEY"
 
-      # Deploy to EC2 via SSH
+      # Configure SSH
       - run:
-          name: Deploy to EC2
-          command: ssh -o "StrictHostKeyChecking=no" -i ~/.ssh/node_app.pem ubuntu@ec2-54-227-8-167.compute-1.amazonaws.com ls -l
+          name: Configure SSH
+          command: |
+            mkdir -p ~/.ssh
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            ssh-keyscan -H hostname >> ~/.ssh/known_hosts
 
-
+      # Example SSH command
+      - run:
+          name: SSH into server
+          command: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@ec2-3-90-250-145.compute-1.amazonaws.com
 
 workflows:
   version: 2
