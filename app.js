@@ -8,7 +8,7 @@ const AWS = require('aws-sdk');
 const app = express();
 const PORT = 3500;
 
-AWS.config.update({ region: 'us-east-1' });
+AWS.config.update({ region: 'us-east-1' }); 
 
 // Create a new AWS Systems Manager client
 const ssm = new AWS.SSM();
